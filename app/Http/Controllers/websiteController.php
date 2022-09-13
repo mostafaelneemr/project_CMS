@@ -72,6 +72,12 @@ class websiteController extends Controller
 
     public function submitContactForm(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'email|required|string',
+            'phone' => 'required|min:11|numeric',
+            'message' => 'string'
+        ]);
         $data = [
             'name' => $request->name,
             'email' => $request->email,

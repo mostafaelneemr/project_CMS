@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -177,6 +178,8 @@ return [
 
         //  to form collective
         Collective\Html\HtmlServiceProvider::class,
+        
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class
 
     ],
 

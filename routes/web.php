@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-
+    
     Route::get('/dashboard', function() {
         return view('admin.dashboard');
     })->name('dashboard');
@@ -66,10 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::patch('setting/update', [settingsController::class, 'update'])->name('settings.update');
 });
 
-
 Route::group(['middleware' => ['web']], function() {
 
-    Route::get('home', [websiteController::class, 'index'])->name('home');
+    Route::get('/', [websiteController::class, 'index'])->name('home');
 
     Route::get('about', [websiteController::class, 'about'])->name('about');
 

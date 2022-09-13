@@ -26,56 +26,66 @@
     <!-- section close -->
 
     <!-- section begin -->
+    @if(Session::has('message'))
+    <div class="alert alert-success">
+        {{Session('message')}}
+    </div>
+    @endif
+    
     <section id="section-contact" data-bgcolor="#f9f9f9">
         <div class="container">
             <div class="row">
-                
-                @if(Session::has('message'))
-                <div class="alert alert-message">
-                    {{Session('message')}}
-                </div>
-                @endif
-                
                 <div class="col-md-8 mb-md-30">
                     <form name="contactForm" id='' class="de_form" method="post" action='{{route('contact.submit')}}'>
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="field-set">
-                                    <input type='text' name='name' id='name' class="form-control" placeholder="Your Name">
+                                    <input type="text" name="name" id="name" class="form-control" @error('name') is-invalid @enderror placeholder="Your Name" required>
+                                    @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <div class="line-fx"></div>
                                 </div>
 
                                 <div class="field-set">
-                                    <input type='text' name='email' id='email' class="form-control" placeholder="Your Email">
+                                    <input type="text" name="email" id="email" class="form-control" @error('email') is-invalid @enderror placeholder="Your Email" required>
+                                    @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <div class="line-fx"></div>
                                 </div>
 
                                 <div class="field-set">
-                                    <input type='text' name='phone' id='phone' class="form-control" placeholder="Your Phone">
+                                    <input type="text" name="phone" id="phone" class="form-control" @error('phone') is-invalid @enderror placeholder="Your Phone" required>
+                                    @error('phone')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <div class="line-fx"></div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="field-set">
-                                    <textarea name='message' id='message' class="form-control" placeholder="Your Message"></textarea>
+                                    <textarea name="message" id="message" class="form-control" placeholder="Your Message"></textarea>
+                                    @error('message')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                     <div class="line-fx"></div>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div id='submit'>
-                                    <input type='submit' id='' value='Submit Form' class="btn btn-custom color-2">
+                                <div id="submit">
+                                    <input type="submit" id="" value="Submit Form" class="btn btn-custom color-2">
                                 </div>
-                                <div id='mail_success' class='success'>Your message has been sent successfully.</div>
-                                <div id='mail_fail' class='error'>Sorry, error occured this time sending your message.</div>
+                                <div id="mail_success" class="success">Your message has been sent successfully.</div>
+                                <div id="mail_fail" class="error">Sorry, error occured this time sending your message.</div>
                             </div>
 
 
                         </div>
                     </form>
-
                 </div>
 
                 <div class="col-md-4">
