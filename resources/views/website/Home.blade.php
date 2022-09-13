@@ -147,7 +147,7 @@
             @foreach($galleries as $gallery)
                 <div class="col-lg-4 col-md-6 col-sm-6 sq-item">
                     <div class="picframe wow">
-                         <div class="pf-click" data-value="project-details-image.html">
+                         <div data-value="project-details-image.html">
                              <span class="overlay">
                                     <span class="title"> <span>{{$gallery->title}}</span> </span>
                             </span>

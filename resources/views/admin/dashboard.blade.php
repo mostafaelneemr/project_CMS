@@ -15,7 +15,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb pt-0 pr-0 float-left float-sm-right">
-          <li class="breadcrumb-item"><a href="{{route('home')}}" class="default-color">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{route('home')}}" target="_blank" class="default-color">Home Page website</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div>
@@ -32,7 +32,7 @@
                 <i class="fa fa-bar-chart-o highlight-icon" aria-hidden="true"></i>
               </span>
             </div>
-            <a class="float-right text-right" href="" >
+            <a class="float-right text-right" target="_blank" href="{{route('home')}}" >
               <p class="card-text text-dark">Viewers of home page</p>
               <h4>{{ getCount() }}</h4>
             </a>
