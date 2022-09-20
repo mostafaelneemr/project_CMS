@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="field-set">
-                                    <input type="text" name="name" id="name" class="form-control" @error('name') is-invalid @enderror placeholder="Your Name" required>
+                                    <input type="text" name="name" id="name" class="form-control" @error('name') is-invalid @enderror value="{{ old('name') }}" placeholder="Your Name" required>
                                     @error('name')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="field-set">
-                                    <input type="text" name="email" id="email" class="form-control" @error('email') is-invalid @enderror placeholder="Your Email" required>
+                                    <input type="text" name="email" id="email" class="form-control" @error('email') is-invalid @enderror value="{{ old('email') }}" placeholder="Your Email" required>
                                     @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="field-set">
-                                    <input type="text" name="phone" id="phone" class="form-control" @error('phone') is-invalid @enderror placeholder="Your Phone" required>
+                                    <input type="text" name="phone" id="phone" class="form-control" @error('phone') is-invalid @enderror value="{{ old('phone') }}" placeholder="Your Phone" required>
                                     @error('phone')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror

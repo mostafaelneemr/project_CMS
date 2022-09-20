@@ -54,7 +54,7 @@ class pageController extends Controller
         return redirect()->route('pages.index');
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput();
         }
     }
 

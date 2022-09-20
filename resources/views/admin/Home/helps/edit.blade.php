@@ -35,9 +35,8 @@
 
                         <div class="form-group">
                             <div class="text-center">
-                                <img
-                                    src="{{asset($helps->image_url)}}"
-                                    class="rounded-circle  h-25 w-25"  alt="image slider">
+                                <img src="{{asset($helps->image_url)}}"
+                                    class="rounded-circle h-25 w-25" alt="image slider">
                             </div>
                         </div>
 

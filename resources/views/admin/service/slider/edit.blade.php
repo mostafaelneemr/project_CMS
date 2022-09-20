@@ -33,14 +33,12 @@
                         @method('PUT')
                         @csrf
 
-                        <input name="id" value="{{$sliders->id}}" type="hidden">
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <div class="text-center">
-                                <img
-                                    src="{{$sliders->image_url}}"
-                                    class="rounded-circle  height-150" alt="image slider">
+                                <img src="{{asset($sliders->image_url)}}"
+                                    class="rounded-circle h-25 w-25" alt="image slider">
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="form-group">
                             <label>picture</label>
@@ -82,8 +80,6 @@
                 </div>
             </div>
 @endsection
-
-
 
 @section('js')
 @endsection

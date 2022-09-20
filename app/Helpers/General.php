@@ -4,6 +4,11 @@ use App\Models\backend\home\page;
 use App\Models\backend\setting;
 use App\Models\viewer;
 
+
+/**
+ * 
+ * @return global function image
+ */
 function uploadImage($folder , $image)
 {
     $image->store('/',$folder);
@@ -18,14 +23,19 @@ function getPages()
     return $pages;
 }
 
-// retuen value of setting to get value in balde view
+/**
+ * @return global function to return setting data in website
+ */
 function setting($name) 
 {
     $settings = setting::where('name', $name)->select('name', 'value')->first();
     return $settings->value;
 }
 
-// return to dashboard to retuen viewer home page
+/**
+ * 
+ * @return global function count home page to review in dashboard
+ */
 function getCount()
 {
     $view = viewer::first();

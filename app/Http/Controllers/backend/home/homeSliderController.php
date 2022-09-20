@@ -23,7 +23,7 @@ class homeSliderController extends Controller
         if ($slider == 0) {
             return view('admin.Home.slider.create'); 
         }else{
-            return redirect(route('home-slider.index'));
+            return redirect()->route('home-slider.index');
         }
     }
 
@@ -47,7 +47,7 @@ class homeSliderController extends Controller
             return redirect()->back();
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]); 
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput(); 
         }
     }
     

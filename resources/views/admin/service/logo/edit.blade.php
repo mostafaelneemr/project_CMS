@@ -30,6 +30,13 @@
                             @method('PUT')
                             @csrf
 
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <img src="{{asset($logos->logo)}}"
+                                        class="rounded-circle h-25 w-25" alt="image logo">
+                                </div>
+                            </div>
+
                             <div class="form-body">
                                 <div class="form-group">
                                     <label>picture</label>

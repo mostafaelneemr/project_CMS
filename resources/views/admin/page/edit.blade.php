@@ -32,6 +32,14 @@
                     <form class="form" action="{{route('pages.update', $pages->id)}}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
+
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img src="{{asset($pages->thumbnail)}}"
+                                    class="rounded-circle h-25 w-25" alt="image slider">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label> picture</label>
                             <label id="projectinput7" class="file center-block">

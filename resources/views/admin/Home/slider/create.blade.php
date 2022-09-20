@@ -46,7 +46,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label>title</label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" required>
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
                                 @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -54,7 +54,7 @@
 
                             <div class="form-group col-md-4">
                                 <label>sub title</label>
-                                <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror" required>
+                                <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror" value="{{ old('sub_title') }}" required>
                                 @error('sub_title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

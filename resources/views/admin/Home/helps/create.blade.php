@@ -46,17 +46,15 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>title</label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" required>
+                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
                                 @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
-
-
                             <div class="form-group col-md-6">
                                 <label>button</label>
-                                <input type="text" name="button" class="form-control @error('button') is-invalid @enderror" required>
+                                <input type="text" name="button" class="form-control @error('button') is-invalid @enderror" value="{{ old('button') }}" required>
                                 @error('button')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -75,9 +73,7 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="button" class="btn btn-warning mr-1"
-                                onclick="history.back();"><i class="ft-x"></i>back
-                        </button>
+                        <button type="button" class="btn btn-warning mr-1" onclick="history.back();"><i class="ft-x"></i>back</button>
                         <button type="submit" class="btn btn-success"><i class="la la-check-square-o"></i>save</button>
                     </div>
 

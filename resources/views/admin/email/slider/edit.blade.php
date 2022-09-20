@@ -33,14 +33,12 @@
                         @method('PUT')
                         @csrf
 
-                        <input name="id" value="{{$sliders->id}}" type="hidden">
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <div class="text-center">
-                                <img
-                                    src="{{$sliders->image_url}}"
-                                    class="rounded-circle  height-150" alt="image slider">
+                                <img src="{{asset($sliders->image_url)}}"
+                                    class="rounded-circle h-25 w-25" alt="image slider">
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="form-group">
                             <label>picture</label>
@@ -55,14 +53,14 @@
     
                         <div class="form-body">
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label>title</label>
                                     <input type="text" name="title" value="{{$sliders->title}}" class="form-control @error('title') is-invalid @enderror" >
                                     @error('title')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label>sub title</label>
                                     <input type="text" name="sub_title" value="{{$sliders->sub_title}}" class="form-control @error('sub_title') is-invalid @enderror">
                                     @error('sub_title')
@@ -82,8 +80,6 @@
                 </div>
             </div>
 @endsection
-
-
 
 @section('js')
 @endsection

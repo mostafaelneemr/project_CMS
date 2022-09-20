@@ -5,7 +5,6 @@ namespace App\Http\Controllers\backend\blog;
 use App\Http\Controllers\Controller;
 use App\Models\backend\blog\Blog;
 use Illuminate\Http\Request;
-use Illuminate\Queue\Jobs\RedisJob;
 use Illuminate\Support\Str;
 
 class blogController extends Controller
@@ -24,7 +23,6 @@ class blogController extends Controller
     public function store(Request $request)
     {   
         try {
-
             $this->validate($request, [
                 'thumbnail' => 'required|unique:blogs,thumbnail|max:50|string',
                 'title' => 'required|unique:blogs,title|max:100|string',
@@ -39,8 +37,6 @@ class blogController extends Controller
                 'title.unique' => 'title is already exist',
                 'title.max' => 'title must be 50 charecter',
                 'description.string' => 'description should bs string',
-                'day.min' => 'choose day between 1 - 30 days',
-                'day.max' => 'choose day between 1 - 30 days',
                 'image_url.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
 
@@ -63,7 +59,7 @@ class blogController extends Controller
         return redirect()->route('blog-section.index');
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput();
         }
     }
 

@@ -44,7 +44,7 @@ class helpController extends Controller
             ]);
             
             session()->flash('Add', 'Done added helps section');
-            return redirect(route('help-section.index'));
+            return redirect()->route('help-section.index');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);

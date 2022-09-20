@@ -33,7 +33,13 @@
                         @method('PUT')
                         @csrf
 
-                        <input name="id" value="{{$pics->id}}" type="hidden">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img src="{{asset($pics->image_url)}}"
+                                    class="rounded-circle  h-25 w-25"  alt="image slider">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label> picture</label>
                             <label class="file center-block">
