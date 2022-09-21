@@ -36,7 +36,7 @@ class aboutServController extends Controller
             ]);
 
             session()->flash('Add', 'done add service section to about page');
-            return redirect()->route('service-section.index');
+            return redirect()->route('about-service.index');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);

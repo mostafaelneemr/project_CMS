@@ -65,18 +65,6 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label>published</label>
-                            <select name="is_published" class="select2 form-control">
-                                <optgroup label="choose publish ablut post">
-                                    <option value=1>publish</option>
-                                    <option value=0>draft</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="form-actions">
                         <button type="button" class="btn btn-warning mr-1"
                                 onclick="history.back();"><i class="ft-x"></i>back

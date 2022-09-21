@@ -22,11 +22,11 @@ class websiteController extends Controller
     {
         $sliders = Slider::orderBy('id', 'DESC')->where('slider_type', 'home')->get();
         $services = Service::orderBy('id', 'DESC')->where('is_published', '1')->where('serv_type', 'home')->paginate(4);
-        $helps = about::orderBy('id', 'DESC')->where('content_type', 'home')->where('is_published', '1')->latest()->paginate(1);
+        $helps = about::orderBy('id', 'DESC')->where('content_type', 'home')->get();
         $galleries = gallery::orderBy('id', 'DESC')->paginate(6);
         $blogs = Blog::orderBy('id', 'DESC')->get();
         $view = viewer::first();
-        event(new PageViewer($view));
+        // event(new PageViewer($view));
         return view('website.Home', compact('sliders', 'services', 'helps', 'galleries', 'blogs'));
     }
 

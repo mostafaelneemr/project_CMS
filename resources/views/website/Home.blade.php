@@ -21,7 +21,7 @@
                                  <h3>{{$slider->title}}</h3>
                                 <h1 class="big b">{{$slider->sub_title}}</h1>
                                 <div class="spacer-single"></div>
-                                <a href="#" class="btn-custom">{{$slider->button}}</a> 
+                                <a href="{{setting('link-button')}}" class="btn-custom">{{$slider->button}}</a> 
                          </div>
                     </div>
                 </div>
@@ -119,7 +119,6 @@
     <section data-bgcolor="#f9f9f9">
         <div class="container">
             <div class="row align-items-center">
-    
                 @foreach ($helps as $help)
                 <div class="col-md-6">
                     <img src="{{asset($help->image_url)}}" class="mb-sm-30 img-fluid" alt="">
@@ -128,10 +127,9 @@
                     <h2 class="mb20">{{$help->title}}</h2>
                     <p>{!! $help->details !!}</p>
                     <div class="spacer-half"></div>
-                    <a href="#section-portfolio" class="btn-custom scroll-to">{{$help->button}}</a>
+                    <a href="{{setting('Link-button')}}" class="btn-custom scroll-to">{{$help->button}}</a>
                 </div>
                 @endforeach
-    
                 <div class="clearfix"></div>
             </div>
         </div>

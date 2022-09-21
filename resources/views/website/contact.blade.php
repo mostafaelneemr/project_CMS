@@ -96,7 +96,7 @@
                         {{setting('address')}}
                     <div class="spacer-single"></div>
                     <h6 class="id-color">Email Us</h6>
-                        {{setting('email')}}
+                        <a href="mailto:{{setting('email')}}" target="_blank">{{setting('email')}}</a>
                 </div>
 
             </div>

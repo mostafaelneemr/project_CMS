@@ -56,7 +56,7 @@ class teamController extends Controller
     {
         try {
             $this->validate($request, [
-                'image' => 'required|image|mimes:png,jpg,jpeg',
+                'image' => 'image|mimes:png,jpg,jpeg',
                 'title' => 'required|string',
                 'sub_title' => 'required|string',
             ]);
