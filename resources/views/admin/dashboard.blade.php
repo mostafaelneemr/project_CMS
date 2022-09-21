@@ -37,7 +37,7 @@
               <h4>{{ getCount() }}</h4>
             </a>
           </div>
-          <p class="text-muted pt-3 mb-0 mt-2 border-top"><i class="fa fa-exclamation-circle mr-1" aria-hidden="true"></i></p>
+          <p class="text-muted pt-3 mb-0 mt-2 border-top"><i class="fa fa-repeat mr-1" aria-hidden="true"></i> Just Updated</p>
         </div>
       </div>
     </div>

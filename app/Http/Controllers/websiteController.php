@@ -26,7 +26,7 @@ class websiteController extends Controller
         $galleries = gallery::orderBy('id', 'DESC')->paginate(6);
         $blogs = Blog::orderBy('id', 'DESC')->get();
         $view = viewer::first();
-        // event(new PageViewer($view));
+        event(new PageViewer($view));
         return view('website.Home', compact('sliders', 'services', 'helps', 'galleries', 'blogs'));
     }
 
