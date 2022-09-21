@@ -1,4 +1,4 @@
-<div class="modal fade" id="deletedabout" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="deleteteam" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
    <div class="modal-dialog">
        <div class="modal-content">
@@ -9,11 +9,11 @@
                </button>
            </div>
            <div class="modal-body">
-               <form action="{{route('about-section.destroy','test')}}" method="post">
+               <form action="{{route('about-team.destroy','test')}}" method="post">
                    @method('DELETE')
                    @csrf
  
-                   <input type="hidden" name="about_id" id="about_id" value=""> 
+                   <input type="hidden" name="team_id" id="team_id" value=""> 
 
                    <div class="row">
                        <div class="col">

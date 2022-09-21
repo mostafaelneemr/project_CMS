@@ -64,8 +64,8 @@
                                                     <td>
                                                         <a href="{{route('about-team.edit',$team->id)}}" class="btn btn-info btn-sm" title="Edit" role="button" aria-pressed="true"><i class="fa fa-edit"></i></a>
                                                         
-                                                        <button class="btn btn-danger btn-sm" data-about_id="{{$team->id}}"
-                                                            data-toggle="modal" data-target="#deletedabout"><i class="fa fa-trash" title="delete"></i></button>
+                                                        <button class="btn btn-danger btn-sm" data-team_id="{{$team->id}}"
+                                                            data-toggle="modal" data-target="#deleteteam"><i class="fa fa-trash" title="delete"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -73,7 +73,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                @include('admin.about.about.delete')
+                                @include('admin.about.team.delete')
                             </div>
                         </div>
                     </div>
@@ -85,11 +85,11 @@
 
 @section('js')
 <script>
-    $('#deletedabout').on('show.bs.modal', function (event) {
+    $('#deleteteam').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
-        var about_id = button.data('about_id')
+        var team_id = button.data('team_id')
         var modal = $(this)
-        modal.find('.modal-body #about_id').val(about_id);
+        modal.find('.modal-body #team_id').val(team_id);
     })
 </script>
 @endsection

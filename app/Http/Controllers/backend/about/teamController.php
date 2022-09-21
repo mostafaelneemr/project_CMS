@@ -90,13 +90,14 @@ class teamController extends Controller
     {
         try {
             $teams = team::findOrFail($request->team_id);
-            $image = Str::after($teams->image, 'team/');
+            $image = Str::after($teams->image, 'image/');
             $image = public_path('image/' . $image);
             unlink($image);
             $teams->delete();
 
             session()->flash('Deleted', 'done deleted one person from team, please create another one to complete team in about page');
             return redirect()->route('about-team.index');
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
