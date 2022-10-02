@@ -15,6 +15,8 @@ use App\Http\Controllers\backend\service\serviceController;
 use App\Http\Controllers\backend\service\logoController;
 use App\Http\Controllers\backend\service\serviceSliderController;
 use App\Http\Controllers\backend\settingsController;
+use App\Http\Controllers\backend\user\RoleController;
+use App\Http\Controllers\backend\user\UserController;
 use App\Http\Controllers\websiteController;
 use App\Http\Controllers\websiteSlugController;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +66,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('settings', [settingsController::class, 'index'])->name('settings');
     Route::patch('setting/update', [settingsController::class, 'update'])->name('settings.update');
+    
+    // permissions Role
+    Route::resource('roles', RoleController::class);
+    // users
+    Route::resource('users', UserController::class);
 });
 
 Route::group(['middleware' => ['web']], function() {

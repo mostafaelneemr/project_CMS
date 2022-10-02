@@ -56,7 +56,7 @@
                         <div class="form-body">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label>title</label>
+                                    <label>name</label>
                                     <input type="text" name="title" value="{{$teams->title}}" class="form-control @error('title') is-invalid @enderror" >
                                     @error('title')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>sub_title</label>
+                                    <label>title</label>
                                     <input type="text" name="sub_title" value="{{$teams->sub_title}}" class="form-control @error('sub_title') is-invalid @enderror">
                                     @error('sub_title')
                                     <div class="alert alert-danger">{{ $message }}</div>

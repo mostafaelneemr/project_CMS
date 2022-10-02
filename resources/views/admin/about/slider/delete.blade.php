@@ -8,14 +8,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('slider-section.destroy','test')}}" method="post">
+            <form action="{{route('about-slider.destroy','test')}}" method="post">
                 {{method_field('delete')}}
                 {{csrf_field()}}
                 <div class="modal-body">
                     <p class="text-center">
                     <h6 style="color:red">delete this slider section</h6>
                     </p>
-                    <input type="hidden" name="pro_id" id="pro_id" value="">
+                    <input type="hidden" name="slide_id" id="slide_id" value="">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>

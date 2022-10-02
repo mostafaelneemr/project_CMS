@@ -4,9 +4,6 @@
     blog section
 @endsection
 
-@section('css')
-@endsection
-
 @section('content')
     <div class="page-title">
         <div class="row">
@@ -29,14 +26,14 @@
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
-
+                    
+                    @can('role-create')
                     <div class="row">
                         <div class="col mb-3">
-                            {{-- @if (\App\Models\backend\home\slider::count() == 0) --}}
                                 <a href="{{route('blog-section.create')}}" class="btn btn-success" role="button" aria-pressed="true">create</a> 
-                            {{-- @endif --}}
                         </div>
                     </div>
+                    @endcan
 
                     <div class="table-responsive">
                         <table id="datatable" class="table table-striped table-bordered p-0 text-center table-hover">
@@ -60,11 +57,16 @@
                                     <td>{!! $blog->description !!}</td>
                                     {{-- <td class={{$service->is_published == 1 ? 'text-success':'text-danger'}}>{{$service->is_published == 1 ? 'published' : 'draft'}}</td> --}}
                                     <td>
+                                        @can('role-edit')
                                         <a href="{{route('blog-section.edit',$blog->id)}}" class="btn btn-info btn-sm"
                                            title="Edit" role="button" aria-pressed="true"><i class="fa fa-edit"></i></a>
+                                        @endcan
 
-                                           <button class="btn btn-danger btn-sm" data-blog_id="{{$blog->id}}"
+                                        @can('role-delete')
+                                        <button class="btn btn-danger btn-sm" data-blog_id="{{$blog->id}}"
                                             data-toggle="modal" data-target="#deletedblog"><i class="fa fa-trash" title="delete"></i></button>
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,7 +76,6 @@
                 </div>
             </div>
         </div>
-
         @include('admin.blog.blog.delete')
     </div>    
 @endsection

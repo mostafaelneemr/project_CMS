@@ -44,7 +44,7 @@ class serviceSliderController extends Controller
         ]);
 
             session()->flash('Add', 'slider section add one slide');
-            return redirect()->back();
+            return redirect()->route('service-slider.index');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]); 

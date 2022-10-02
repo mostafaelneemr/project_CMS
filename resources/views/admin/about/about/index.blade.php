@@ -4,9 +4,6 @@
     about-section
 @endsection
 
-@section('css')
-@endsection
-
 @section('content')
     <div class="page-title">
         <div class="row">
@@ -23,20 +20,22 @@
     </div>
 
     @include('admin.message')
-    <!-- main body -->
 
+    <!-- main body -->
     <div class="row">
         <div class="col-md-12 mb-30">
             <div class="card card-statistics h-100">
                 <div class="card-body">
-                {{-- button Add new Product --}}
+
+                @can('role-create')
                 <div class="row">
                     <div class="col mb-3">
                         @if (\App\Models\backend\home\about::where('content_type', 'about')->count() == 0)
-                            <a href="{{route('about-section.create')}}" class="btn btn-success" role="button" aria-pressed="true">create</a> 
+                        <a href="{{route('about-section.create')}}" class="btn btn-success" role="button" aria-pressed="true">create</a> 
                         @endif
                     </div>
                 </div>
+                @endcan
                 
                 <div class="table-responsive">
                     <table id="" class="table table-striped table-bordered p-0 text-center table-hover">
@@ -57,10 +56,15 @@
                                 <td>{{$about->title}}</td>
                                 <td>{!! $about->details !!}</td>
                                 <td>
+                                    @can('role-edit')
                                     <a href="{{route('about-section.edit',$about->id)}}" class="btn btn-info btn-sm" title="Edit" role="button" aria-pressed="true"><i class="fa fa-edit"></i></a>
-                                                        
+                                    @endcan
+                                                      
+                                    @can('role-delete')
                                     <button class="btn btn-danger btn-sm" data-about_id="{{$about->id}}"
                                         data-toggle="modal" data-target="#deletedabout"><i class="fa fa-trash" title="delete"></i></button>
+                                    @endcan
+
                                 </td>
                             </tr>
                         @endforeach

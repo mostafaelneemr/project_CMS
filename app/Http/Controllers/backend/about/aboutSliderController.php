@@ -44,7 +44,7 @@ class aboutSliderController extends Controller
         ]);
 
             session()->flash('Add', 'slider section add one slide');
-            return redirect()->back();
+            return redirect()->route('about-slider.index');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]); 
@@ -85,10 +85,10 @@ class aboutSliderController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         try {
-            $slider = Slider::findOrFail($id);
+            $slider = Slider::findOrFail($request->slide_id);
             $image = Str::after($slider->image_url, 'image/');
             $image = public_path('image/' . $image);
             unlink($image);

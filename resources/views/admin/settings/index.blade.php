@@ -4,12 +4,8 @@
     Settings
 @endsection
 
-@section('css')
-@endsection
-
 @section('content')
 
-@include('admin.message')
 
 <div class="page-title">
     <div class="row">
@@ -24,6 +20,9 @@
         </div>
     </div>
 </div>
+
+@include('admin.message')
+
 <!-- main body -->
 <div class="card card-statistics mb-30">
     <div class="card-body">
@@ -44,25 +43,6 @@
                 {!! Form::close() !!}
             </div>
         </div>
-
-        {{-- <form class="form" action="{{url('admin/setting.update')}}" method="patch">
-            @csrf
-
-            @foreach ($settings as $setting)
-            <div class="form-group row">
-                <label for="" class="col-sm-2 col-form-label" name="name">{{ $setting->name }}</label>
-                <div class="col-sm-10">
-                    <input type="text" name="value" value="{{ $setting->value }}" class="form-control" id="" placeholder="Email">
-                </div>
-            </div>
-            @endforeach
-
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </div>
-        </form> --}}
     </div>
 </div>
 @endsection

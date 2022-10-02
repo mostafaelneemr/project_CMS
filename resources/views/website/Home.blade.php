@@ -21,7 +21,7 @@
                                  <h3>{{$slider->title}}</h3>
                                 <h1 class="big b">{{$slider->sub_title}}</h1>
                                 <div class="spacer-single"></div>
-                                <a href="{{setting('link-button')}}" class="btn-custom">{{$slider->button}}</a> 
+                                <a href="{{setting('link-button')}}" target="_blank" class="btn-custom">{{$slider->button}}</a> 
                          </div>
                     </div>
                 </div>

@@ -30,11 +30,13 @@
             <div class="card card-statistics h-100">
                 <div class="card-body">
                     {{-- button Add new service --}}
+                    @can('role-create')
                     <div class="row">
                         <div class="col mb-3">
-                                <a href="{{route('about-service.create')}}" class="btn btn-success" role="button" aria-pressed="true">create</a> 
+                            <a href="{{route('about-service.create')}}" class="btn btn-success" role="button" aria-pressed="true">create</a> 
                         </div>
                     </div>
+                    @endcan
 
                     <div class="table-responsive">
                         <table id="datatable" class="table table-striped table-bordered p-0 text-center table-hover">
@@ -55,11 +57,15 @@
                                     <td>{!! $service->details !!}</td>
                                     <td class={{$service->is_published == 1 ? 'text-success':'text-danger'}}>{{$service->is_published == 1 ? 'published' : 'draft'}}</td>
                                     <td>
+                                        @can('role-edit')
                                         <a href="{{route('service-section.edit',$service->id)}}" class="btn btn-info btn-sm"
                                            title="Edit" role="button" aria-pressed="true"><i class="fa fa-edit"></i></a>
+                                        @endcan
 
+                                        @can('role-delete')
                                         <button class="btn btn-danger btn-sm" data-serv_id="{{$service->id}}"
                                         data-toggle="modal" data-target="#deletedservice"><i class="fa fa-trash" title="delete"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -69,7 +75,6 @@
                 </div>
             </div>
         </div>
-
         @include('admin.service.service.delete')
     </div>    
 @endsection

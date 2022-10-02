@@ -45,14 +45,14 @@
                     <div class="form-body">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>title</label>
+                                <label>name</label>
                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" required>
                                 @error('title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group col-md-6">
-                                <label>sub title</label>
+                                <label>title</label>
                                 <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror" required>
                                 @error('sub_title')
                                 <div class="alert alert-danger">{{ $message }}</div>

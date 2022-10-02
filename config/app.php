@@ -162,7 +162,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
         /*
          * Package Service Providers...
          */
@@ -176,10 +175,16 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        // spatie permissions
+        Spatie\Permission\PermissionServiceProvider::class,
+
         //  to form collective
         Collective\Html\HtmlServiceProvider::class,
         
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class
+
+
 
     ],
 

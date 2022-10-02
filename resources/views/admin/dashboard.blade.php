@@ -86,12 +86,12 @@
                 <i class="fa fa-twitter highlight-icon" aria-hidden="true"></i>
               </span>
             </div>
-            <a class="float-right text-right" href="#">
+            <a class="float-right text-right" href="{{route('users.index')}}">
               <p class="card-text text-dark">Users</p>
               <h4>{{App\Models\User::count()}}</h4>
             </a>
           </div>
-          <p class="text-muted pt-3 mb-0 mt-2 border-top"><i class="fa fa-repeat mr-1" aria-hidden="true"></i> Just Updated</p>
+          <p class="text-muted pt-3 mb-0 mt-2 border-top"><i class="fa fa-repeat mr-1" aria-hidden="true"></i>Just Updated</p>
         </div>
       </div>
     </div>

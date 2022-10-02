@@ -64,7 +64,9 @@
                 {{-- <a class="dropdown-item" href="{{route('profile')}}"><i class="text-warning ti-user"></i>Profile</a> --}}
                 {{-- <a class="dropdown-item" href="#"><i class="text-dark ti-layers-alt"></i>Projects <span class="badge badge-info">6</span> </a>  --}}
                 <div class="dropdown-divider"></div>
+                @can('settings')
                 <a class="dropdown-item" href="{{route('settings')}}"><i class="text-info ti-settings"></i>settings</a>
+                @endcan
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="text-danger ti-unlock"></i>logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

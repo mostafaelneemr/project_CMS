@@ -14,12 +14,14 @@
             <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Component</li>
            
             <!-- menu item Elements-->
+            @can('home-page')
             <li>
               <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu">
                 <div class="pull-left"><i class="ti-calendar"></i><span class="right-nav-text">Home Page</span></div>
                 <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
               </a>
-              <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">    
+              <ul id="calendar-menu" class="collapse" data-parent="#sidebarnav">  
+                  
                 <li> <a href="{{route('home-slider.index')}}">Slider section</a></li>
                 {{-- <li> <a href="{{route('service-section.index')}}">Service section</a></li> --}}
                 <li> <a href="{{route('help-section.index')}}">Help section</a></li>
@@ -27,7 +29,9 @@
                 <li> <a href="{{route('pages.index')}}">Pages</a></li>
               </ul>
             </li>
-            
+            @endcan
+
+            @can('about-page')            
            <li>
              <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
                <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">About US</span></div>
@@ -40,19 +44,23 @@
                <li><a href="{{route('about-team.index')}}">team section</a></li>
               </ul>
            </li>
+           @endcan 
 
+           @can('service-page')               
            <li>
-            <a href="javascript:void(0);" data-toggle="collapse" data-target="#pages">
+            <a href="javascript:void(0);" data-toggle="collapse" data-target="#service">
               <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">Services</span></div>
               <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
             </a>
-            <ul id="pages" class="collapse" data-parent="#sidebarnav">
+            <ul id="service" class="collapse" data-parent="#sidebarnav">
               <li><a href="{{route('service-slider.index')}}">service slider</a></li>
               <li><a href="{{route('service-section.index')}}">service section</a></li>
               <li><a href="{{route('logo-section.index')}}">logo section</a></li>
              </ul>
            </li>
+           @endcan
 
+           @can('blog-page')            
            <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#galley">
               <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">Blog</span></div>
@@ -63,7 +71,9 @@
              <li><a href="{{route('blog-section.index')}}">blog section</a></li>
              </ul>
            </li>
+           @endcan
 
+           @can('contact-page')             
            <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#contact">
               <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">contact</span></div>
@@ -74,8 +84,10 @@
              {{-- <li><a href="{{route('blog-section.index')}}">blog section</a></li> --}}
              </ul>
            </li>
+           @endcan
 
-           {{-- <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Permessions</li>
+           @can('permessions')               
+           <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Permessions</li>
             <!-- permissions-->
             <li>
               <a href="javascript:void(0);" data-toggle="collapse" data-target="#chart">
@@ -83,10 +95,17 @@
                 <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
               </a>
               <ul id="chart" class="collapse" data-parent="#sidebarnav">
-                <li> <a href=""></a> </li>
-                <li> <a href=""></a> </li>
+                @can('role-permission')
+                <li> <a href="{{route('roles.index')}}">roles permission</a></li>
+                @endcan
+
+                @can('users')
+                <li> <a href="{{route('users.index')}}">users</a></li>
+                @endcan
               </ul>
-            </li>             --}}
+            </li>            
+           @endcan
+
            <!-- menu item todo-->
            {{-- <li>
              <a href="todo-list.html"><i class="ti-menu-alt"></i><span class="right-nav-text">Todo list</span> </a>
