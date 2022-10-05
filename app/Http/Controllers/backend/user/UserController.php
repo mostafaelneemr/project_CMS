@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -105,6 +106,10 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        // dd(Auth::user()->roles->where('name' , 'admin'));
+        // if((Auth::id() == $id) == true || Auth::user()->role ) {
+
+        // }
         User::destroy($id);
         session()->flash('Deleted', 'Deleted user succesfully');
         return redirect()->back();

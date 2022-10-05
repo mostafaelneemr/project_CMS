@@ -71,6 +71,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('roles', RoleController::class);
     // users
     Route::resource('users', UserController::class);
+    
+    // log viewer error 
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 });
 
 Route::group(['middleware' => ['web']], function() {
@@ -92,7 +96,6 @@ Route::group(['middleware' => ['web']], function() {
     
     Route::get('page/{slug}', [websiteSlugController::class, 'page'])->name('page');
 });
-
 
 require __DIR__.'/auth.php';
 

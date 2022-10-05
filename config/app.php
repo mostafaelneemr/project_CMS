@@ -182,9 +182,10 @@ return [
         //  to form collective
         Collective\Html\HtmlServiceProvider::class,
         
-        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
-
+        // rap2hpoutre/laravel-log-viewer
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
