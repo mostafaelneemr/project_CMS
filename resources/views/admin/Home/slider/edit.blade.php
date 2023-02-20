@@ -33,6 +33,8 @@
                         @method('PUT')
                         @csrf
 
+                        <input type="hidden" value="{{$sliders->image_url}}" name="old_image">
+
                         <div class="form-group">
                             <div class="text-center">
                                 <img src="{{asset($sliders->image_url)}}"

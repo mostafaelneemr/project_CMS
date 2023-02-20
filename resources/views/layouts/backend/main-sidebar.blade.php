@@ -49,7 +49,7 @@
            @can('service-page')               
            <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#service">
-              <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">Services</span></div>
+              <div class="pull-left"><i class="fa fa-server"></i><span class="right-nav-text">Services</span></div>
               <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
             </a>
             <ul id="service" class="collapse" data-parent="#sidebarnav">
@@ -63,7 +63,7 @@
            @can('blog-page')            
            <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#galley">
-              <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">Blog</span></div>
+              <div class="pull-left"><i class="fa fa-industry"></i><span class="right-nav-text">Blog</span></div>
               <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
             </a>
             <ul id="galley" class="collapse" data-parent="#sidebarnav">
@@ -76,7 +76,7 @@
            @can('contact-page')             
            <li>
             <a href="javascript:void(0);" data-toggle="collapse" data-target="#contact">
-              <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">contact</span></div>
+              <div class="pull-left"><i class="fa fa-phone"></i><span class="right-nav-text">contact</span></div>
               <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
             </a>
             <ul id="contact" class="collapse" data-parent="#sidebarnav">
@@ -91,7 +91,7 @@
             <!-- permissions-->
             <li>
               <a href="javascript:void(0);" data-toggle="collapse" data-target="#chart">
-                <div class="pull-left"><i class="ti-pie-chart"></i><span class="right-nav-text">Users</span></div>
+                <div class="pull-left"><i class="fa fa-user-circle-o"></i><span class="right-nav-text">Users</span></div>
                 <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
               </a>
               <ul id="chart" class="collapse" data-parent="#sidebarnav">
