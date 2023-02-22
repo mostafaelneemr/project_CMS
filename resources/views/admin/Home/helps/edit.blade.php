@@ -33,6 +33,9 @@
                         @method('PUT')
                         @csrf
 
+                        <input type="hidden" name="id" value="{{$helps->id}}" />
+                        <input type="hidden" name="old_image" value="{{$helps->image_url}}" />
+
                         <div class="form-group">
                             <div class="text-center">
                                 <img src="{{asset($helps->image_url)}}"

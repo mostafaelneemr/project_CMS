@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\home\gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Redirect;
 
 class galleryController extends Controller
 {
@@ -32,16 +34,26 @@ class galleryController extends Controller
                 'image_url.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
 
-            $filePath = "";
-            if($request->has('image_url'));
-            $filePath = uploadImage('portfolio', $request->image_url);
+            // $filePath = "";
+            // if($request->has('image_url'));
+            // $filePath = uploadImage('portfolio', $request->image_url);
+
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->save('image/website/'.$name_gen);
+            $filePath = 'image/website/'.$name_gen;
+
             gallery::create([ 'title' => $request->title, 'image_url' => $filePath, ]);
 
-            session()->flash('Add', 'one picture done added to gallery');
-            return redirect(route('gallery-section.index'));
+            // session()->flash('Add', 'one picture done added to gallery');
+            $notification = array(
+                'message' => 'One Picture Added to Gallery success',
+                'alert-type' => 'success'
+            );
+            return redirect::route('gallery-section.index')->with($notification);
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
@@ -62,21 +74,35 @@ class galleryController extends Controller
                 'title.string' => 'title should be string',
                 'image_url.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
+            $id = gallery::findOrFail($id);
+            $old_image = $request->old_image;
 
-            $pics = gallery::findOrFail($id);
-
-            if($request->has('image_url')){
-                $filePath = uploadImage('portfolio', $request->image_url);
-                gallery::where('id', $id)->update([ 'image_url' => $filePath, ]);
+            if($request->file('image_url')){
+                @unlink($old_image);
+                $image = $request->file('image_url');
+                $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+                Image::make($image)->save('image/website/'.$name_gen);
+                $filePath = 'image/website/'.$name_gen;
+                gallery::where('id', $id)->update(['image_url' => $filePath]);
             }
+            
+            // $pics = gallery::findOrFail($id);
+            // if($request->has('image_url')){
+            //     $filePath = uploadImage('portfolio', $request->image_url);
+            //     gallery::where('id', $id)->update([ 'image_url' => $filePath, ]);
+            // }
 
-            $pics->update(['title' => $request->title,]);
+            $id->update(['title' => $request->title,]);
 
-            session()->flash('edit', 'done edit picture from gallery');
-            return redirect(route('gallery-section.index'));
+            // session()->flash('edit', 'done edit picture from gallery');
+            $notification = array(
+                'message' => 'Edit Picture Is Success',
+                'alert-type' => 'info',
+            );
+            return redirect::route('gallery-section.index')->with($notification);
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
@@ -84,16 +110,22 @@ class galleryController extends Controller
     {
         try {
             $pics = gallery::findOrFail($request->pic_id);
-            $image = Str::after($pics->image_url, 'image/');
-            $image = public_path('image/' . $image);
-            unlink($image);
+            // $image = Str::after($pics->image_url, 'image/');
+            // $image = public_path('image/' . $image);
+
+            $image = $pics->image_url;
+            @unlink($image);
             $pics->delete();
         
-            session()->flash('Deleted', 'deleted one picture from gallery');
-            return redirect()->back();
+            // session()->flash('Deleted', 'deleted one picture from gallery');
+            $notification = array(
+                'message' => 'Deleted Picture From Gallery is Success',
+                'alert-type' => 'error'
+            );
+            return redirect::back()->with($notification);
             
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 }

@@ -83,7 +83,6 @@ class homeSliderController extends Controller
             //     Slider::where('id', $id)->update([ 'image_url' => $filePath, ]);
             // }
             
-
             if($request->file('image_url')) {
                 @unlink($old_image);
                 $image = $request->file('image_url');

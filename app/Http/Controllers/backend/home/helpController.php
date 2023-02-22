@@ -8,6 +8,8 @@ use App\Http\Requests\about\UpdateAboutRequest;
 use App\Models\backend\home\about;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Redirect;
 
 class helpController extends Controller
 {
@@ -22,7 +24,7 @@ class helpController extends Controller
         if (about::where('content_type', 'home')->count() == 0) {
             return view('admin.Home.helps.create');
         }else{
-            return redirect()->back();
+            return redirect::back();
             // return \Response()->view('website.error-404', array(), 404);
         }    
     }
@@ -30,10 +32,15 @@ class helpController extends Controller
     public function store(StoreAboutRequest $request)
     {
         try {
-            $filePath = "";
-            if($request->has('image_url')) { 
-                $filePath = uploadImage('website', $request->image_url);
-            }
+            // $filePath = "";
+            // if($request->has('image_url')) { 
+            //     $filePath = uploadImage('website', $request->image_url);
+            // }
+
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->save('image/website/'.$name_gen);
+            $filePath = 'image/website/'.$name_gen;
 
             about::create([
                 'image_url' => $filePath,
@@ -43,11 +50,15 @@ class helpController extends Controller
                 'content_type' => 'home',
             ]);
             
-            session()->flash('Add', 'Done added helps section');
-            return redirect()->route('help-section.index');
+            // session()->flash('Add', 'Done added helps section');
+            $notification = array(
+                'message' => 'Help Section Added is Success',
+                'alert-type' => 'success'
+            );
+            return redirect::route('help-section.index')->with($notification);
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
@@ -61,11 +72,20 @@ class helpController extends Controller
     {
         try {
             $helps = about::findOrFail($id);
+            $old_image = $request->old_image;
+            // if($request->has('image_url')){
+            //     $filePath = uploadImage('website', $request->image_url);
+            //     about::where('id', $id)->update([ 'image_url' => $filePath, ]);
+            // };
 
-            if($request->has('image_url')){
-                $filePath = uploadImage('website', $request->image_url);
-                about::where('id', $id)->update([ 'image_url' => $filePath, ]);
-            };
+            if($request->file('image_url')){
+                @unlink($old_image);
+                $image = $request->file('image_url');
+                $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+                Image::make($image)->save('image/website/'.$name_gen);
+                $filePath = 'image/website/'.$name_gen;
+                $helps->update(['image_url' => $filePath]);
+            }
 
             $helps->update([
                 'title' => $request->title,
@@ -73,11 +93,15 @@ class helpController extends Controller
                 'button' => $request->button,
             ]);
 
-            session()->flash('edit', 'done editing help section');
-            return redirect()->route('help-section.index');
+            // session()->flash('edit', 'done editing help section');
+            $notification = array(
+                'message' => 'Editing Help Section is Success',
+                'alert-type' => 'info',  
+            );
+            return redirect::route('help-section.index')->with($notification);
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 
@@ -85,16 +109,22 @@ class helpController extends Controller
     {
         try {
             $helps = about::findOrFail($request->help_id);
-            $image = Str::after($helps->image_url, 'image/');
-            $image = public_path('image/' . $image);
+            // $image = Str::after($helps->image_url, 'image/');
+            // $image = public_path('image/' . $image);
+
+            $image = $helps->image_url;
             unlink($image);
             $helps->delete();
 
-            session()->flash('Deleted', 'section help is deleted please insert one helps section');
-            return redirect()->back();
+            // session()->flash('Deleted', 'section help is deleted please insert one helps section');
+            $notification = array(
+                'message' => 'Section Help is Deleted, Please add one again',
+                'alert-type' => 'error',
+            );
+            return redirect::back()->with($notification);
 
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 }
