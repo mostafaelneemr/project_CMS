@@ -7,9 +7,18 @@ use App\Models\backend\home\gallery;
 use App\Models\backend\service\logo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class logoController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:service-list|service-create|service-edit|service-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:service-create', ['only' => ['create','store']]);
+         $this->middleware('permission:service-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:service-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $logos = logo::all();
@@ -32,11 +41,10 @@ class logoController extends Controller
                 'brand.string' => 'title should be string',
                 'logo.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
-
-            $filePath = "";
-            if ($request->has('logo')) {
-                $filePath = uploadImage('website', $request->logo);
-            };
+            $image = $request->file('logo');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(240, 80)->save('image/logo/'.$name_gen);
+            $filePath = 'image/logo/'.$name_gen;
             logo::create([ 'logo' => $filePath, 'brand' => $request->brand, 'is_published' => $request->is_published]);
 
             session()->flash('Add', 'logo is added');
@@ -65,7 +73,7 @@ class logoController extends Controller
                 'brand.required' => 'name of brand is required',
                 'logo.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
-            
+
             $logos = logo::findOrFail($id);
             if ($request->has('logo')) {
                 $filePath = uploadImage('website', $request->logo);

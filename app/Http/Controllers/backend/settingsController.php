@@ -8,10 +8,25 @@ use Illuminate\Http\Request;
 
 class settingsController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:setting', ['only' => ['index','update']]);
+    }
 
     public function index(){
-        $settings = setting::all();
-        return view('admin.settings.index', compact('settings'))->render();
+
+        $settingGroups = Setting::select('group_name')->groupBy('group_name')->where('is_visible',1  )
+            ->where('group_name','!=','staff_app')->get();
+        
+        $setting = [];
+        foreach ($settingGroups as $key => $value) {
+            $setting[] = Setting::where('group_name',$value->group_name)->where('is_visible',1)->orderBy('sort','ASC')->get();
+        }
+
+        $this->viewData['settingGroups'] = $settingGroups;
+        $this->viewData['setting'] = $setting;
+
+        return view('admin.settings.index',$this->viewData);
     }
 
     public function update(Request $request){

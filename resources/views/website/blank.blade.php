@@ -1,5 +1,4 @@
 @extends('layouts.website.master')
-    
 
 @section('title')
     blank 

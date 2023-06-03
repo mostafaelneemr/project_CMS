@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\home\page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class pageController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:page-list|page-create|page-edit|page-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:page-create', ['only' => ['create','store']]);
+         $this->middleware('permission:page-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:page-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $pages = page::all();
@@ -36,23 +45,21 @@ class pageController extends Controller
                 'details.string' => 'details should bs string',
             ]);
 
-            $filePath = "";
-            if ($request->has('thumbnail')) {
-                $filePath = uploadImage('page', $request->thumbnail);
-            };
-        
-        page::create([
-            'thumbnail' => $filePath,
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'sub_title' => $request->sub_title,
-            'details' => $request->details,
-            'is_published' => $request->is_published,
-        ]);
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(1920, 540)->save('image/page/'.$name_gen);
+            $filePath = 'image/page/'.$name_gen;
 
-        session()->flash('Add', 'done added new link in home page');
-        return redirect()->route('pages.index');
-
+            page::create([
+                'thumbnail' => $filePath,
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'sub_title' => $request->sub_title,
+                'details' => $request->details,
+                'is_published' => $request->is_published,
+            ]);
+            session()->flash('Add', 'done added new link in home page');
+            return redirect()->route('pages.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()])->withInput();
         }
@@ -79,7 +86,7 @@ class pageController extends Controller
                 'sub_title.string' => 'sub title should be string',
                 'details.string' => 'details should bs string',
             ]);
-            
+
             $pages = page::findOrFail($id);
 
             if ($request->has('thumbnail')) {
@@ -96,12 +103,12 @@ class pageController extends Controller
 
             session()->flash('edit', 'done editing link in home page');
             return redirect()->route('pages.index');
-            
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
-    
+
     public function destroy(Request $request)
     {
         try {
@@ -113,7 +120,7 @@ class pageController extends Controller
 
             session()->flash('Deleted', 'deleted one link from home page , please create another link to home page');
             return redirect()->route('pages.index');
-            
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }

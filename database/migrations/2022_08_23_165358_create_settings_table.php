@@ -15,10 +15,16 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('value');
-            $table->string('input_type')->default('text');
+            $table->char('name',100);
+            $table->text('value');
+            $table->char('show_name',150);
+            $table->char('input_type',100);
+            $table->string('option_list');
+            $table->string('group_name');
+            $table->integer('sort');
+            $table->enum('is_visible',['1','0']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

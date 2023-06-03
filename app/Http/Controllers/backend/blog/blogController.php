@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\blog\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class blogController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:blog-list|blog-create|blog-edit|blog-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:blog-create', ['only' => ['create','store']]);
+         $this->middleware('permission:blog-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $blogs = Blog::all();
@@ -21,7 +30,7 @@ class blogController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         try {
             $this->validate($request, [
                 'thumbnail' => 'required|unique:blogs,thumbnail|max:50|string',
@@ -40,10 +49,10 @@ class blogController extends Controller
                 'image_url.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
 
-            $filePath = "";
-            if ($request->has('image_url')) {
-                $filePath = uploadImage('blog', $request->image_url);
-            };
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(700,467)->save('image/blog/'.$name_gen);
+            $filePath = 'image/blog/'.$name_gen;
 
         Blog::create([
             'thumbnail' => $request->thumbnail,
@@ -108,7 +117,7 @@ class blogController extends Controller
 
             session()->flash('edit', 'blog section done editing');
             return redirect()->route('blog-section.index');
-            
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
@@ -122,10 +131,10 @@ class blogController extends Controller
             $image = public_path('image/' . $image);
             unlink($image);
             $blogs->delete();
-            
+
             session()->flash('Deleted', 'blog section is deleted please create again one blog section for blog page');
             return redirect()->back();
-            
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }

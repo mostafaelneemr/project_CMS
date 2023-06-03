@@ -5,12 +5,19 @@ namespace App\Http\Controllers\backend\home;
 use App\Http\Controllers\Controller;
 use App\Models\backend\home\gallery;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redirect;
 
 class galleryController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:home-list|home-create|home-edit|home-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:home-create', ['only' => ['create','store']]);
+         $this->middleware('permission:home-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:home-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $pics = gallery::all();
@@ -34,18 +41,12 @@ class galleryController extends Controller
                 'image_url.mimes' => 'image should be extension one of jpg , png or jpeg',
             ]);
 
-            // $filePath = "";
-            // if($request->has('image_url'));
-            // $filePath = uploadImage('portfolio', $request->image_url);
-
             $image = $request->file('image_url');
             $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
-            Image::make($image)->save('image/website/'.$name_gen);
-            $filePath = 'image/website/'.$name_gen;
-
+            Image::make($image)->save('image/portfolio/'.$name_gen);
+            $filePath = 'image/portfolio/'.$name_gen;
             gallery::create([ 'title' => $request->title, 'image_url' => $filePath, ]);
 
-            // session()->flash('Add', 'one picture done added to gallery');
             $notification = array(
                 'message' => 'One Picture Added to Gallery success',
                 'alert-type' => 'success'
@@ -66,7 +67,7 @@ class galleryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $this->validate($request, [ 
+            $this->validate($request, [
                 'title' => 'required|string|max:100',
                 'image_url' => 'image|mimes:jpeg,png,jpg',
             ],
@@ -85,7 +86,7 @@ class galleryController extends Controller
                 $filePath = 'image/website/'.$name_gen;
                 gallery::where('id', $id)->update(['image_url' => $filePath]);
             }
-            
+
             // $pics = gallery::findOrFail($id);
             // if($request->has('image_url')){
             //     $filePath = uploadImage('portfolio', $request->image_url);
@@ -116,14 +117,14 @@ class galleryController extends Controller
             $image = $pics->image_url;
             @unlink($image);
             $pics->delete();
-        
+
             // session()->flash('Deleted', 'deleted one picture from gallery');
             $notification = array(
                 'message' => 'Deleted Picture From Gallery is Success',
                 'alert-type' => 'error'
             );
             return redirect::back()->with($notification);
-            
+
         } catch (\Exception $e) {
             return redirect::back()->withErrors(['errors' => $e->getMessage()]);
         }

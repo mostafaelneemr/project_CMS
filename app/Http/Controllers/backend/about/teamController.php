@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\backend\home\team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class teamController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:about-list|about-create|about-edit|about-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:about-create', ['only' => ['create','store']]);
+         $this->middleware('permission:about-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:about-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $teams = team::all();
@@ -29,10 +38,10 @@ class teamController extends Controller
                 'sub_title' => 'required|string',
             ]);
 
-            $filePath = "";
-            if($request->has('image')){
-                $filePath = uploadImage('team', $request->image);
-            };
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(600,800)->save('image/team/'.$name_gen);
+            $filePath = 'image/team/'.$name_gen;
             team::create([
                 'image' => $filePath,
                 'title' => $request->title,
@@ -71,7 +80,7 @@ class teamController extends Controller
                 $filePath = uploadImage('team', $request->image);
                 team::where('id', $id)->update([ 'image' => $filePath, ]);
             };
-            
+
             $team->update([
                 'title' => $request->title,
                 'sub_title' => $request->sub_title,

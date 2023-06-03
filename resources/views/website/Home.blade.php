@@ -1,7 +1,7 @@
 @extends('layouts.website.master')
-    
+
 @section('title')
-    Home 
+    Home
 @endsection
 
 @section('css')
@@ -10,8 +10,8 @@
 @section('content')
     <!-- section begin -->
     @foreach ($sliders as $slider)
-    <section id="section-intro" class="full-height relative owl-slide-wrapper text-light no-top no-bottom" data-stellar-background-ratio=".2" 
-        data-bgimage="url({{asset($slider->image_url)}})"> 
+    <section id="section-intro" class="full-height relative owl-slide-wrapper text-light no-top no-bottom" data-stellar-background-ratio=".2"
+        data-bgimage="url({{asset($slider->image_url)}})">
         <div class="overlay-bg t50">
             <div class="center-y relative">
                 <div class="container">
@@ -21,13 +21,13 @@
                                  <h3>{{$slider->title}}</h3>
                                 <h1 class="big b">{{$slider->sub_title}}</h1>
                                 <div class="spacer-single"></div>
-                                <a href="{{setting('link-button')}}" target="_blank" class="btn-custom">{{$slider->button}}</a> 
+                                <a href="{{setting('link-button')}}" target="_blank" class="btn-custom">{{$slider->button}}</a>
                          </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <a href="#section-services" class="scroll-to">
             <span class="mouse">
                 <span class="scroll"></span>
@@ -44,7 +44,7 @@
 				<div class="col-md-8">
 					<div class="row sequence">
 						<!-- feature box begin -->
-                        @foreach ($services as $service)            
+                        @foreach ($services as $service)
 				        <div class="col-md-6 mb40 sq-item wow sq-item wow">
 					        <div class="feature-box style-2 left">
 						        <i class="icon-pencil"></i>
@@ -58,7 +58,7 @@
 						<!-- feature box close -->
 					</div>
 				</div>
-					
+
 			    <div class="col-md-4">
 					<figure class="picframe invert transparent hover-shadow rounded">
                             <span class="overlay-v">
@@ -73,47 +73,47 @@
                         <img src="{{asset('website/images/misc/2.jpg')}}" class="img-fullwidth" alt="">
                     </figure>
 			    </div>
-			</div>	
+			</div>
         </div>
     </section>
     <!-- section close -->
 
-		<!-- section begin -->
-        {{-- <section class="bg-color text-light pt60 pb60">
-                    <div class="container">
-    
-                        <div class="row">
-                            <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
-                                <div class="de_count">
-                                    <h3 class="timer" data-to="8240" data-speed="2500">0</h3>
-                                    <span>Hours of Works</span>
-                                </div>
-                            </div>
-    
-                            <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
-                                <div class="de_count">
-                                    <h3 class="timer" data-to="315">0</h3>
-                                    <span>Projects Done</span>
-                                </div>
-                            </div>
-    
-                            <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
-                                <div class="de_count">
-                                    <h3 class="timer" data-to="250">0</h3>
-                                    <span>Satisfied Customers</span>
-                                </div>
-                            </div>
-    
-                            <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
-                                <div class="de_count">
-                                    <h3 class="timer" data-to="32" data-speed="2500">0</h3>
-                                    <span>Awards Winning</span>
-                                </div>
-                            </div>
-                        </div>
+	<!-- section begin -->
+    <section class="bg-color text-light pt60 pb60">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
+                    <div class="de_count">
+                        <h3 class="timer" data-to="8240" data-speed="2500">0</h3>
+                        <span>Hours of Works</span>
                     </div>
-        </section> --}}
-        <!-- section close -->
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
+                    <div class="de_count">
+                        <h3 class="timer" data-to="315">0</h3>
+                        <span>Projects Done</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
+                    <div class="de_count">
+                        <h3 class="timer" data-to="250">0</h3>
+                        <span>Satisfied Customers</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-6 mb-sm-30">
+                    <div class="de_count">
+                        <h3 class="timer" data-to="32" data-speed="2500">0</h3>
+                        <span>Awards Winning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section close -->
 
     <!-- section begin -->
     <section data-bgcolor="#f9f9f9">
@@ -140,7 +140,7 @@
     <section id="section-portfolio" aria-label="section-portfolio" class="no-top no-bottom" data-bgcolor="#fafafa">
         <div class="container-fluid">
              <div class="row no-gutters gallery-wrap sequence_pf">
-    
+
                 <!-- gallery item -->
             @foreach($galleries as $gallery)
                 <div class="col-lg-4 col-md-6 col-sm-6 sq-item">
@@ -165,7 +165,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="blog-carousel" class="owl-carousel owl-theme">
-                        @foreach ($blogs as $blog)                        
+                        @foreach ($blogs as $blog)
                         <div class="post-item s1 item">
                             <div class="date-box">
                                 <div class="m">{{$blog->day}}</div>

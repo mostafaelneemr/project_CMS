@@ -50,17 +50,13 @@
 
                                 <div class="field-set">
                                     <input type="text" name="email" id="email" class="form-control" @error('email') is-invalid @enderror value="{{ old('email') }}" placeholder="Your Email" required>
-                                    @error('email')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
                                     <div class="line-fx"></div>
                                 </div>
 
                                 <div class="field-set">
                                     <input type="text" name="phone" id="phone" class="form-control" @error('phone') is-invalid @enderror value="{{ old('phone') }}" placeholder="Your Phone" required>
-                                    @error('phone')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
                                     <div class="line-fx"></div>
                                 </div>
                             </div>
@@ -68,9 +64,7 @@
                             <div class="col-md-6">
                                 <div class="field-set">
                                     <textarea name="message" id="message" class="form-control" placeholder="Your Message"></textarea>
-                                    @error('message')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    @error('message') <div class="alert alert-danger">{{ $message }}</div> @enderror
                                     <div class="line-fx"></div>
                                 </div>
                             </div>
@@ -90,7 +84,7 @@
 
                 <div class="col-md-4">
                     <h6 class="id-color">Call Us</h6>
-                        {{setting('call-us')}}
+                        {{setting('call_us')}}
                     <div class="spacer-single"></div>
                     <h6 class="id-color">Address</h6>
                         {{setting('address')}}
@@ -100,7 +94,7 @@
                 </div>
 
             </div>
-
+            
         </div>
     </section>
     <!-- section close -->

@@ -8,9 +8,18 @@ use App\Http\Requests\about\UpdateAboutRequest;
 use App\Models\backend\home\about;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class aboutController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:about-list|about-create|about-edit|about-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:about-create', ['only' => ['create','store']]);
+         $this->middleware('permission:about-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:about-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $abouts = about::where('content_type', 'about')->get();
@@ -28,10 +37,10 @@ class aboutController extends Controller
     public function store(StoreAboutRequest $request)
     {
         try {
-            $filePath = "";
-            if($request->has('image_url')) { 
-                $filePath = uploadImage('website', $request->image_url);
-            }
+            $image = $request->file('image_url');
+            $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(1920, 1180)->save('image/website/'.$name_gen);
+            $filePath = 'image/website/'.$name_gen;
 
             about::create([
                 'image_url' => $filePath,
@@ -39,7 +48,7 @@ class aboutController extends Controller
                 'details' => $request->details,
                 'content_type' => 'about',
             ]);
-            
+
             session()->flash('Add', 'Done added helps section');
             return redirect()->route('about-section.index');
 

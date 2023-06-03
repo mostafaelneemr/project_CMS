@@ -7,12 +7,19 @@ use App\Http\Requests\about\StoreAboutRequest;
 use App\Http\Requests\about\UpdateAboutRequest;
 use App\Models\backend\home\about;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Redirect;
 
 class helpController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:home-list|home-create|home-edit|home-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:home-create', ['only' => ['create','store']]);
+         $this->middleware('permission:home-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:home-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $helps = about::where('content_type', 'home')->get();
@@ -26,20 +33,16 @@ class helpController extends Controller
         }else{
             return redirect::back();
             // return \Response()->view('website.error-404', array(), 404);
-        }    
+        }
     }
 
     public function store(StoreAboutRequest $request)
     {
         try {
-            // $filePath = "";
-            // if($request->has('image_url')) { 
-            //     $filePath = uploadImage('website', $request->image_url);
-            // }
 
             $image = $request->file('image_url');
             $name_gen = hexdec(uniqid()). '.' .$image->getClientOriginalExtension();
-            Image::make($image)->save('image/website/'.$name_gen);
+            Image::make($image)->resize(768, 459)->save('image/website/'.$name_gen);
             $filePath = 'image/website/'.$name_gen;
 
             about::create([
@@ -49,8 +52,7 @@ class helpController extends Controller
                 'button' => $request->button,
                 'content_type' => 'home',
             ]);
-            
-            // session()->flash('Add', 'Done added helps section');
+
             $notification = array(
                 'message' => 'Help Section Added is Success',
                 'alert-type' => 'success'
@@ -96,7 +98,7 @@ class helpController extends Controller
             // session()->flash('edit', 'done editing help section');
             $notification = array(
                 'message' => 'Editing Help Section is Success',
-                'alert-type' => 'info',  
+                'alert-type' => 'info',
             );
             return redirect::route('help-section.index')->with($notification);
 

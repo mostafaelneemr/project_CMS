@@ -5,13 +5,20 @@ namespace App\Http\Controllers\backend\about;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\service\StoreServiceRequest;
 use App\Http\Requests\service\UpdateServiceRequest;
-use App\Http\Requests\slider\UpdateSliderRequest;
 use App\Models\backend\service\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class aboutServController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:about-list|about-create|about-edit|about-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:about-create', ['only' => ['create','store']]);
+         $this->middleware('permission:about-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:about-delete', ['only' => ['destroy']]);
+    }
+    
     public function index()
     {
         $services = Service::where('serv_type', 'about')->get();
